@@ -25,17 +25,17 @@
 <form style="display: flex; flex-direction: column; width: 50vh; gap: 10px; padding: 10px" method="POST" action="<%=request.getContextPath()%>/home?action=actualizarEmployee">
     <input type ="hidden" class ="form-control" name ="id" value ="<%=employee.getIdEmployee()%>">
     <label>Nombre (Mantener el formato: Apellido, Nombre)</label>
-    <input type="text" id ="fName" name ="fName" value="<%=employee.getFullNameEmployee()%>">
+    <input type="text" id ="fName" name ="fName" value="<%=employee.getFullNameEmployee()%>" required>
     <label>Email</label>
-    <input type="text" id ="email" name ="email" value="<%=employee.getEmail()%>">
+    <input type="text" id ="email" name ="email" value="<%=employee.getEmail()%>" required>
     <label>Teléfono celular</label>
     <input type="text" id ="phNumber" name ="phNumber"  value="<%=employee.getPhNumber()%>">
     <label>Salario</label>
     <input type="text" id="salary" name="salary" value="<%=employee.getSalary()%>">
     <label>Fecha de contratación</label> <!--Calendario-->
-    <input type="date" name="hireDate" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(employee.getHireDate()) %>">
+    <input type="date" name="hireDate" value="<%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(employee.getHireDate()) %>" required>
     <label>Trabajo</label><!--Lista-->
-    <select id="jobId" name="jobId">
+    <select id="jobId" name="jobId" required>
         <%
             for (Job job : listaJ){
         %>

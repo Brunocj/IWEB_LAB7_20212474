@@ -21,20 +21,21 @@
 </head>
 <body>
 <h1>Crear empleado</h1>
+<p>Los items marcados con una "<span style="color: red">O</span>" son obligatorios</p>
 <form style="display: flex; flex-direction: column; width: 50vh; gap: 10px; padding: 10px" method="POST" action="<%=request.getContextPath()%>/home?action=nuevoEmployee">
     <label><span style="color: red">O</span>Nombre (Mantener el formato: Apellido, Nombre)<span style="color: red">O</span></label>
-    <input type="text" id ="fName" name ="fName" placeholder="Ingrese el nombre completo del empleado (Apellido, Nombre): ">
+    <input type="text" id ="fName" name ="fName" placeholder="Ingrese el nombre completo del empleado (Apellido, Nombre): " required>
     <label><span style="color: red">O</span>Email<span style="color: red">O</span></label>
-    <input type="text" id ="email" name ="email" placeholder="Ingrese el email del empleado">
+    <input type="text" id ="email" name ="email" placeholder="Ingrese el email del empleado" required>
     <label>Teléfono celular</label>
     <input type="text" id ="phNumber" name ="phNumber"  placeholder="Ingrese el numero telefónico del empleado (###.###.###):">
     <label>Salario</label>
     <input type="text" id="salary" name="salary" placeholder="Ingrese un salario del empleado:">
     <label><span style="color: red">O</span>Fecha de contratación<span style="color: red">O</span></label> <!--Calendario-->
-    <input type="date" name="hireDate">
+    <input type="date" name="hireDate" required>
     <label><span style="color: red">O</span>Trabajo<span style="color: red">O</span></label><!--Lista-->
-    <select id="jobId" name="jobId">
-        <option value="NULL">---</option>
+    <select id="jobId" name="jobId" required>
+        <option value="">---</option>
         <%
             for (Job job : listaJ){
         %>
@@ -46,7 +47,7 @@
 
     <label>Departamento</label><!--Lista-->
     <select id="departmentId" name="departmentId">
-        <option value="NULL">---</option>
+        <option value="">---</option>
         <%
             for (Department dep : listaD){
         %>
@@ -60,7 +61,7 @@
     <label>Manager</label><!--Lista-->
 
     <select id="managerId" name="managerId">
-        <option value="NULL">---</option>
+        <option value="">---</option>
         <%
             for (Employee manager : listaM){
         %>

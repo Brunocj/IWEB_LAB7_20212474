@@ -38,6 +38,7 @@
     </thead>
     <tbody>
     <%
+        //Se considera que solo se puede editar o borrar a los employees pero no a los managers; porque cuando se intenta ello, sale error
         for (Employee employee : lista) {
             boolean Actions = false;
             for (Employee manager : listaManagers) {
@@ -46,6 +47,8 @@
                     break;
                 }
             }
+
+
     %>
     <tr>
         <td><%=employee.getFullNameEmployee() %></td>

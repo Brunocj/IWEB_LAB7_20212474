@@ -188,15 +188,14 @@ public class DaoEmployee {
         }
     }
 
-    public void crearEmployee(Employee employee, String jobId, int managerId, int departmentId){
+    public void crearEmployee(Employee employee, String jobId, Integer managerId, Integer departmentId) {
         try {
-            Class.forName( "com.mysql.cj.jdbc.Driver");
-
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        String url ="jdbc:mysql://localhost:3306/hr";
+        String url = "jdbc:mysql://localhost:3306/hr";
         String username = "root";
         String password = "123456";
         String sql = "INSERT INTO employees (first_name, last_name, email, phone_number, hire_date, job_id, salary, department_id, manager_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -216,13 +215,23 @@ public class DaoEmployee {
             stmt.setDate(5, new java.sql.Date(employee.getHireDate().getTime()));
             stmt.setString(6, jobId);
             stmt.setDouble(7, employee.getSalary());
-            stmt.setInt(8, departmentId);
-            stmt.setInt(9, managerId);
+
+            if (departmentId == null) {
+                stmt.setNull(8, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(8, departmentId);
+            }
+
+            if (managerId == null) {
+                stmt.setNull(9, java.sql.Types.INTEGER);
+            } else {
+                stmt.setInt(9, managerId);
+            }
+
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
     //Funciones extras para mostrar listas en el formulario de editar y agregar
     public ArrayList<Employee> listarManagers(){

@@ -14,8 +14,6 @@ import org.example.lab7_iweb_20212474.model.daos.DaoEmployee;
 import org.example.lab7_iweb_20212474.model.daos.DaoJobs;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -107,7 +105,12 @@ public class HRServlet extends HttpServlet {
                 employeeAct.setFullNameEmployee(request.getParameter("fName"));
                 employeeAct.setEmail(request.getParameter("email"));
                 employeeAct.setPhNumber(request.getParameter("phNumber"));
-                employeeAct.setSalary(Double.parseDouble(request.getParameter("salary")));
+                String salaryStr = request.getParameter("salary");
+                double salary = 0;
+                if(salaryStr != null && !salaryStr.isEmpty()){
+                    salary = Double.parseDouble(salaryStr);
+                }
+                employeeAct.setSalary(salary);
                 String hireDateStr = request.getParameter("hireDate");
                 Date hireDate = null;
                 if (hireDateStr != null && !hireDateStr.isEmpty()) {
@@ -119,8 +122,16 @@ public class HRServlet extends HttpServlet {
                 }
                 employeeAct.setHireDate(hireDate);
                 String jobIdAct = request.getParameter("jobId");
-                int deptIdAct = Integer.parseInt(request.getParameter("departmentId"));
-                int managerId = Integer.parseInt(request.getParameter("managerId"));
+                String deptIdStr = request.getParameter("departmentId");
+                int deptIdAct = 0;
+                if(deptIdStr != null && !deptIdStr.isEmpty()){
+                    deptIdAct = Integer.parseInt(deptIdStr);
+                }
+                String managerIdStr = request.getParameter("managerId");
+                int managerId = 0;
+                if(managerIdStr != null && !managerIdStr.isEmpty()){
+                    managerId = Integer.parseInt(managerIdStr);
+                }
                 boolean actValid = true;
                 if(jobIdAct.length()>10){
                     actValid = false;
@@ -136,7 +147,14 @@ public class HRServlet extends HttpServlet {
                 employeeCr.setFullNameEmployee(request.getParameter("fName"));
                 employeeCr.setEmail(request.getParameter("email"));
                 employeeCr.setPhNumber(request.getParameter("phNumber"));
-                employeeCr.setSalary(Double.parseDouble(request.getParameter("salary")));
+
+                String salaryStrCr = request.getParameter("salary");
+                Double salaryCr = 0.0;
+                if (salaryStrCr != null && !salaryStrCr.isEmpty()) {
+                    salaryCr = Double.parseDouble(salaryStrCr);
+                }
+                employeeCr.setSalary(salaryCr);
+
                 String hireDateStrCr = request.getParameter("hireDate");
                 Date hireDateCr = null;
                 if (hireDateStrCr != null && !hireDateStrCr.isEmpty()) {
@@ -147,18 +165,30 @@ public class HRServlet extends HttpServlet {
                     }
                 }
                 employeeCr.setHireDate(hireDateCr);
+
                 String jobIdCr = request.getParameter("jobId");
-                int deptIdCr = Integer.parseInt(request.getParameter("departmentId"));
-                int managerIdCr = Integer.parseInt(request.getParameter("managerId"));
+
+                String deptIdStrCr = request.getParameter("departmentId");
+                Integer deptIdCr = null;
+                if (deptIdStrCr != null && !deptIdStrCr.isEmpty()) {
+                    deptIdCr = Integer.parseInt(deptIdStrCr);
+                }
+
+                String managerIdStrCr = request.getParameter("managerId");
+                Integer managerIdCr = null;
+                if (managerIdStrCr != null && !managerIdStrCr.isEmpty()) {
+                    managerIdCr = Integer.parseInt(managerIdStrCr);
+                }
+
                 boolean actValidCr = true;
-                if(jobIdCr.length()>10){
+                if (jobIdCr.length() > 10) {
                     actValidCr = false;
                 }
-                if(actValidCr){
+
+                if (actValidCr) {
                     daoEmployee.crearEmployee(employeeCr, jobIdCr, managerIdCr, deptIdCr);
                     response.sendRedirect(request.getContextPath() + "/home");
                 }
-                break;
 
         }
     }
